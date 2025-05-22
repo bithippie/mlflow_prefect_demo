@@ -1,24 +1,30 @@
 
+from prefect import flow, task
 import mlflow
 import os
+from datetime import datetime
 
-# Log to remote MLflow server
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+RUN_NAME = f"atorres-run-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 
-# Optional: Set experiment
-mlflow.set_experiment("hello-world-experiment")
+@task()
+def train():
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+    mlflow.set_experiment("prefect-hello-world")
 
-with mlflow.start_run():
-    # Log parameters
-    mlflow.log_param("param1", 5)
+    with mlflow.start_run(run_name=RUN_NAME) as run:
+        # Log parameters
+        mlflow.log_param("param1", 5)
 
-    # Log a metric
-    mlflow.log_metric("accuracy", 0.89)
+        # Log a metric
+        mlflow.log_metric("accuracy", 0.89)
 
-    # Log an artifact (e.g., a text file)
-    with open("output.txt", "w") as f:
-        f.write("Hello, world!")
+        with open("artifact.txt", "w") as f:
+            f.write("Prefect-run artifact!")
+        mlflow.log_artifact("artifact.txt")
 
-    mlflow.log_artifact("output.txt")
+@flow(flow_run_name=RUN_NAME)
+def training_flow():
+    train()
 
-    print("Run complete and logged to MLflow.")
+if __name__ == "__main__":
+    training_flow()
