@@ -17,7 +17,7 @@ docker-compose up -d
 
 This will spin up:
 
-- **MLflow UI:** [http://localhost:5000](http://localhost:5000)
+- **MLflow UI:** [http://localhost:5001](http://localhost:5001)
 - **MinIO console (optional):** [http://localhost:9001](http://localhost:9001)  
   (login: `minioadmin` / `minioadmin`)
 
@@ -41,7 +41,7 @@ Run complete and logged to MLflow.
 
 ## 5. Check the MLflow UI
 
-Visit [http://localhost:5000](http://localhost:5000)
+Visit [http://localhost:5001](http://localhost:5001)
 
 You’ll see an experiment named `hello-world-experiment` with:
 
