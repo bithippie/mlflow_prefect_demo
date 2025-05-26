@@ -3,6 +3,7 @@ from prefect import flow, task
 import mlflow
 import os
 from datetime import datetime
+import tempfile
 
 RUN_NAME = f"atorres-run-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 
@@ -17,10 +18,14 @@ def train():
 
         # Log a metric
         mlflow.log_metric("accuracy", 0.89)
-
-        with open("artifact.txt", "w") as f:
+        
+        # Create a temporary file
+        with tempfile.NamedTemporaryFile("w", delete=False, suffix=".txt") as f:
             f.write("Prefect-run artifact!")
-        mlflow.log_artifact("artifact.txt")
+            temp_file_path = f.name
+
+        # Log the artifact directly to MLflow (MLflow will handle S3 upload if configured)
+        mlflow.log_artifact(temp_file_path)
 
 @flow(flow_run_name=RUN_NAME)
 def training_flow():
