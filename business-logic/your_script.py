@@ -9,9 +9,7 @@ RUN_NAME = f"atorres-run-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 
 @task()
 def train():
-    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
-    mlflow.set_experiment("prefect-hello-world")
-
+    
     with mlflow.start_run(run_name=RUN_NAME) as run:
         # Log parameters
         mlflow.log_param("param1", 5)
@@ -29,6 +27,9 @@ def train():
 
 @flow(flow_run_name=RUN_NAME)
 def training_flow():
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+    mlflow.set_experiment("prefect-hello-world")
+
     train()
 
 if __name__ == "__main__":

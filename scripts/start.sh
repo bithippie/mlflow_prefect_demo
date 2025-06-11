@@ -32,7 +32,7 @@ echo "Starting prefect orchestration..."
 docker-compose -f prefect-orchestration/docker-compose.yml up -d
 
 echo "Waiting 1 minute for services to initialize..."
-sleep 60
+sleep 30
 
 echo "Starting business logic container..."
 docker-compose -f business-logic/docker-compose.yml up --build

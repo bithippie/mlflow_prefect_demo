@@ -12,18 +12,9 @@ services:
       - .:/app
     working_dir: /app
     command: python your_script.py
-    depends_on:
-      - prefect-agent
     networks:
       - mlflow-net
 
-  prefect-agent:
-    image: prefecthq/prefect:2-python3.11
-    entrypoint: ["prefect", "agent", "start", "-q", "default"]
-    environment:
-      PREFECT_API_URL: http://prefect:4200/api
-    networks:
-      - mlflow-net
 
 networks:
   mlflow-net:
