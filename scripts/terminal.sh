@@ -1,0 +1,1 @@
+docker-compose -f business-logic/docker-compose.yml exec -it terminal bash

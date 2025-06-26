@@ -16,7 +16,9 @@ To run an end-to-end example:
 sh scripts/start.sh
 ```
 ## Run python in an environment containing business-logic dependencies
-Run `sh ./scripts/terminal.sh` 
+After running `sh scripts/start.sh`
+
+Run `sh scripts/terminal.sh` 
 
 ## View Results on the Web Services
 | Service            | URL                                              | Notes                                |
