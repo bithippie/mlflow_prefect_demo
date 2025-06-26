@@ -1,7 +1,8 @@
 
 services:
   mlflow:
-    image: ghcr.io/mlflow/mlflow:latest
+    build:
+      context: .
     ports:
       - "5001:5001"
     environment:
