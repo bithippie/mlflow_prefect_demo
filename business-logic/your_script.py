@@ -29,10 +29,12 @@ def train():
 
 @flow(flow_run_name=RUN_NAME)
 def training_flow():
+
     mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
     mlflow.set_experiment("prefect-hello-world")
 
-    train()
+    with mlflow.start_run(run_name=RUN_NAME) as run:
+        train()
 
 if __name__ == "__main__":
     training_flow()
