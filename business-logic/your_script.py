@@ -7,6 +7,8 @@ import tempfile
 
 RUN_NAME = f"atorres-run-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 
+mlflow.autolog()
+
 @task()
 def train():
     

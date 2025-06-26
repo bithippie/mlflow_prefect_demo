@@ -2,19 +2,29 @@
 services:
   business-logic:
     build: .
-    environment:
-      AWS_ACCESS_KEY_ID: minioadmin
-      AWS_SECRET_ACCESS_KEY: minioadmin
-      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
-      MLFLOW_TRACKING_URI: http://mlflow:5001
-      PREFECT_API_URL: http://prefect:4200/api
+    env_file:
+      - .local.env
     volumes:
       - .:/app
     working_dir: /app
-    command: python your_script.py
+    command: python ml.py
     networks:
       - mlflow-net
 
+  terminal:
+    build: .
+    env_file:
+      - .local.env
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ["/bin/bash"]
+    restart: always
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    networks:
+      - mlflow-net
+    
 
 networks:
   mlflow-net:

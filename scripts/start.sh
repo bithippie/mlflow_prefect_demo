@@ -31,7 +31,7 @@ docker-compose -f mlflow-server/docker-compose.yml up -d
 echo "Starting prefect orchestration..."
 docker-compose -f prefect-orchestration/docker-compose.yml up -d
 
-echo "Waiting 1 minute for services to initialize..."
+echo "Waiting 30 seconds for services to initialize..."
 sleep 30
 
 echo "Starting business logic container..."

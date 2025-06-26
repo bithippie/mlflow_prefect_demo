@@ -1,3 +1,7 @@
 mlflow
 boto3
-prefect==2.20.18
+prefect
+scikit-learn
+pandas
+optuna
+optuna_integration
