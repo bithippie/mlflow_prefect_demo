@@ -2,6 +2,7 @@
 services:
 
   mlflowdatabase:
+    container_name: mlflowdatabase
     image: postgres:15.2-alpine
     restart: always
     environment:
@@ -9,7 +10,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mlflow
     ports:
-      - "5433:5432"  # Mapeia para a máquina host, útil para debug
+      - "5433:5432"
     volumes:
       - mlflow-db-data:/var/lib/postgresql/data
     networks:
@@ -17,6 +18,7 @@ services:
 
 
   mlflow:
+    container_name: mlflow
     build:
       context: .
     ports:
@@ -40,10 +42,11 @@ services:
       - mlflow-net
 
   minio:
+    container_name: minio
     image: minio/minio
     ports:
-      - "${MINIO_PORT_1:-9000}:9000"
-      - "${MINIO_PORT_2:-9001}:9001"
+      - "${MINIO_PORT_1:-9003}:9000"
+      - "${MINIO_PORT_2:-9004}:9001"
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
